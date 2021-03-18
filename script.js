@@ -19,7 +19,7 @@ function playerSelection() {
         seleccion = ppt[0];
     } else if (seleccion == 'PAPEL') {
         seleccion = ppt[1];
-    } else if (seleccion2 == 'TIJERA') {
+    } else if (seleccion == 'TIJERA') {
         seleccion = ppt[2];
     } else {
         seleccion = null;
