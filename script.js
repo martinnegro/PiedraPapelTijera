@@ -30,7 +30,7 @@ function playerSelection() {
 
 function roundPlay() {
     let p = playerSelection();
-    let c = computerPlay ();
+    
     let resultado;
      console.log(p);
     if (p === null) {
@@ -38,6 +38,8 @@ function roundPlay() {
         alert(resultado);
         return resultado;
     } else {
+        let c = computerPlay ();
+        
         if (p === c) {
             resultado = 'Empate.';
         } else if (p === ppt[0] && c === ppt[1]) {
