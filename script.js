@@ -12,12 +12,9 @@ function computerPlay() {
 
 function playerSelection() {
     let seleccion = prompt('Elegí entre Piedra, Papel o Tijera.','');
-    console.log(seleccion);
 
     seleccion = seleccion.toUpperCase();
 
-    console.log(seleccion);
-    
     if (seleccion == 'PIEDRA') {
         seleccion = ppt[0];
     } else if (seleccion == 'PAPEL') {
@@ -26,17 +23,45 @@ function playerSelection() {
         seleccion = ppt[2];
     } else {
         seleccion = null;
-        alert('Eres un gallina.');
     }
+    
     return seleccion;
 }
 
-console.log(playerSelection(),computerPlay());
+function roundPlay() {
+    let p = playerSelection();
+    let c = computerPlay ();
+    let resultado;
+     console.log(p);
+    if (p === null) {
+        resultado = 'Eres un gallina';
+        alert(resultado);
+        return resultado;
+    } else {
+        if (p === c) {
+            resultado = 'Empate.';
+        } else if (p === ppt[0] && c === ppt[1]) {
+            resultado = '¡Gana Computadora!';    
+        } else if (p === ppt[0] && c === ppt[2]) {
+            resultado = '¡Ganaste!';    
+        } else if (p === ppt[1] && c === ppt[0]) {
+            resultado = '¡Ganaste!';    
+        } else if (p === ppt[1] && c === ppt[2]) {
+            resultado = '¡Gana Computadora!';    
+        } else if (p === ppt[2] && c === ppt[0]) {
+            resultado = '¡Gana Computadora!';    
+        } else if (p === ppt[2] && c === ppt[1]) {
+            resultado = '¡Ganaste!';    
+        } 
+
+        alert('Vos: ' + p + '  -  Computadora: ' + c + ' - ' + resultado);    
+        
+        return resultado;
+    }
+}
+
+console.log(roundPlay());
+
 
 
  
- 
-    
-
-
-console.log('No hay nada en la heladera.');
