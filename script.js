@@ -2,17 +2,13 @@ let ppt = ['& PIEDRA &', '# PAPEL #', '8< TIJERA 8<'];
 
 
 function computerPlay() {
-    
     let random = Math.floor(Math.random() * ppt.length);
-
     let computerSelection = ppt[random];
-    
     return computerSelection;
     }
 
 function playerSelection() {
     let seleccion = prompt('Elegí entre Piedra, Papel o Tijera.','');
-
     seleccion = seleccion.toUpperCase();
 
     if (seleccion == 'PIEDRA') {
@@ -24,46 +20,61 @@ function playerSelection() {
     } else {
         seleccion = null;
     }
-    
+   
     return seleccion;
 }
 
+let resultado = ['Punto pa vo.','Punto pa la máquina.','Empate.','Eres un gallina.'];
+let puntoPlayer = 0;
+let puntoCompu = 0;
+
 function roundPlay() {
+    
     let p = playerSelection();
     
-    let resultado;
-     console.log(p);
     if (p === null) {
-        resultado = 'Eres un gallina';
-        alert(resultado);
-        return resultado;
+        alert(resultado[3]);
+        return resultado[3];
     } else {
         let c = computerPlay ();
-        
+        let punto;
         if (p === c) {
-            resultado = 'Empate.';
+            punto = resultado[2];
         } else if (p === ppt[0] && c === ppt[1]) {
-            resultado = '¡Gana Computadora!';    
+            punto = resultado[1];    
         } else if (p === ppt[0] && c === ppt[2]) {
-            resultado = '¡Ganaste!';    
+            punto = resultado[0];    
         } else if (p === ppt[1] && c === ppt[0]) {
-            resultado = '¡Ganaste!';    
+            punto = resultado[0];    
         } else if (p === ppt[1] && c === ppt[2]) {
-            resultado = '¡Gana Computadora!';    
+            punto = resultado[1];    
         } else if (p === ppt[2] && c === ppt[0]) {
-            resultado = '¡Gana Computadora!';    
+            punto = resultado[1];
         } else if (p === ppt[2] && c === ppt[1]) {
-            resultado = '¡Ganaste!';    
+            punto = resultado[0];    
         } 
 
-        alert('Vos: ' + p + '  -  Computadora: ' + c + ' - ' + resultado);    
-        
+        if (punto == resultado[0]) {
+            ++puntoPlayer;
+        } else if  (punto == resultado[1]) {
+            ++puntoCompu;
+        } else {
+        }
+
+        alert('Vos: ' + p + '  -  Computadora: ' + c + ' - ' + punto);
+        alert('Vos: ' + puntoPlayer + ' - Compu: ' + puntoCompu)
         return resultado;
     }
 }
+function game() {
+    do {
+        resultado = roundPlay();
+    } while (puntoCompu < 5 && puntoPlayer <5); 
+    if (puntoPlayer = 5) {
+        alert('Ganaste! ' + puntoPlayer + ' a ' + puntoCompu + '.');
+    } else {
+    alert('Perdiste!' + puntoCompu + ' a ' + puntoPlayer + '.');
+    }
+}
 
-console.log(roundPlay());
-
-
-
- 
+console.log(game());
