@@ -1,13 +1,14 @@
+
+//Jugadas posibles
 let ppt = ['& PIEDRA &', '# PAPEL #', '8< TIJERA 8<'];
 
-
-function computerPlay() {
-    let random = Math.floor(Math.random() * ppt.length);
-    let computerSelection = ppt[random];
-    return computerSelection;
-    }
-
-function playerSelection() {
+//Random para elección de computadora.
+let computerSelection = function cS() {
+        let random = Math.floor(Math.random() * ppt.length);
+        return seleccionCompu = ppt[random];
+        }
+//Selección de jugador insesitive case
+let playerSelection = function pS() {
     let seleccion = prompt('Elegí entre Piedra, Papel o Tijera.','');
     seleccion = seleccion.toUpperCase();
 
@@ -20,61 +21,80 @@ function playerSelection() {
     } else {
         seleccion = null;
     }
-   
     return seleccion;
 }
 
-let resultado = ['Punto pa vo.','Punto pa la máquina.','Empate.','Eres un gallina.'];
-let puntoPlayer = 0;
-let puntoCompu = 0;
+//Una ronda que ejecuta ambas selecciones, las compara
+// y devuelve un resultado
 
-function roundPlay() {
+let posiblesResultados = ['Punto pa vo.','Punto pa la máquina.','Empate.','Escribí bien, dale.'];
+function roundPlay () {
     
-    let p = playerSelection();
+    let seleccion = playerSelection();
+    let seleccionCompu = computerSelection();
     
-    if (p === null) {
-        alert(resultado[3]);
-        return resultado[3];
+    if (seleccion === null) {
+        resultadoRonda = posiblesResultados[3];
     } else {
-        let c = computerPlay ();
-        let punto;
-        if (p === c) {
-            punto = resultado[2];
-        } else if (p === ppt[0] && c === ppt[1]) {
-            punto = resultado[1];    
-        } else if (p === ppt[0] && c === ppt[2]) {
-            punto = resultado[0];    
-        } else if (p === ppt[1] && c === ppt[0]) {
-            punto = resultado[0];    
-        } else if (p === ppt[1] && c === ppt[2]) {
-            punto = resultado[1];    
-        } else if (p === ppt[2] && c === ppt[0]) {
-            punto = resultado[1];
-        } else if (p === ppt[2] && c === ppt[1]) {
-            punto = resultado[0];    
-        } 
-
-        if (punto == resultado[0]) {
-            ++puntoPlayer;
-        } else if  (punto == resultado[1]) {
-            ++puntoCompu;
-        } else {
+        if (seleccion === seleccionCompu) {
+            resultadoRonda = posiblesResultados[2];
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+        } else if (seleccion === ppt[0] && seleccionCompu === ppt[1]) {
+            resultadoRonda = posiblesResultados[1];    
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+        } else if (seleccion === ppt[0] && seleccionCompu === ppt[2]) {
+            resultadoRonda = posiblesResultados[0];    
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+        } else if (seleccion === ppt[1] && seleccionCompu === ppt[0]) {
+            resultadoRonda = posiblesResultados[0];    
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+        } else if (seleccion === ppt[1] && seleccionCompu === ppt[2]) {
+            resultadoRonda = posiblesResultados[1];    
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+        } else if (seleccion === ppt[2] && seleccionCompu === ppt[0]) {
+            resultadoRonda = posiblesResultados[1];
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+        } else if (seleccion === ppt[2] && seleccionCompu === ppt[1]) {
+            resultadoRonda = posiblesResultados[0];
+            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
         }
-
-        alert('Vos: ' + p + '  -  Computadora: ' + c + ' - ' + punto);
-        alert('Vos: ' + puntoPlayer + ' - Compu: ' + puntoCompu)
-        return resultado;
-    }
+    }      
+    return resultadoRonda;
 }
+
+// el juego en sí
+// primero describe y luego invoca la ronda
+// el primero que llegue a 5 gana.
 function game() {
-    do {
-        resultado = roundPlay();
-    } while (puntoCompu < 5 && puntoPlayer <5); 
-    if (puntoPlayer = 5) {
-        alert('Ganaste! ' + puntoPlayer + ' a ' + puntoCompu + '.');
+    alert('Piedra, papel o tijera clásico. Escribí tus opciones y competí contra la máquina. El primero que llegue a 5, gana. Suerte.')
+    
+    let puntoPlayer = 0;
+    let puntoCompu = 0;
+
+    do { 
+        let resultadoRonda = roundPlay();
+        if ( resultadoRonda === posiblesResultados[0]) {
+            puntoPlayer = ++puntoPlayer;
+            alert (resultadoRonda + '\n J: ' + puntoPlayer + ' - C: ' + puntoCompu);
+            console.log(resultadoRonda);
+        } else if (resultadoRonda === posiblesResultados[1]) {
+            puntoCompu = ++puntoCompu;
+            alert (resultadoRonda + '\n / J: ' + puntoPlayer + ' - C: ' + puntoCompu);
+            console.log(resultadoRonda);
+        } else {
+            alert (resultadoRonda + '\n / J: ' + puntoPlayer + ' - C: ' + puntoCompu);
+            console.log(resultadoRonda);
+        }
+    } while (puntoPlayer < 5 && puntoCompu < 5);
+
+    if (puntoPlayer === 5) {
+        alert('¡Ganaste! ' + puntoPlayer + ' a ' + puntoCompu + '.\n Pasá a buscar tu don periñon');
     } else {
-    alert('Perdiste!' + puntoCompu + ' a ' + puntoPlayer + '.');
-    }
+        alert('Perdiste... ' + puntoPlayer + ' a ' + puntoCompu + '.\n Vergüenza.');
+    }    
 }
 
 console.log(game());
+
+
+
