@@ -2,27 +2,32 @@
 //Jugadas posibles
 let ppt = ['& PIEDRA &', '# PAPEL #', '8< TIJERA 8<'];
 
-//Random para elección de computadora.
+/*Random para elección de computadora.
+Cambia la eleccion de la computadora en cada vuelta */
 let computerSelection = function cS() {
         let random = Math.floor(Math.random() * ppt.length);
-        return seleccionCompu = ppt[random];
-        }
-//Selección de jugador insesitive case
-let playerSelection = function pS() {
-    let seleccion = prompt('Elegí entre Piedra, Papel o Tijera.','');
-    seleccion = seleccion.toUpperCase();
+        
+        const computadora = document.querySelector('#computadora')
+        let div = document.querySelector('.eleccionCompu');
 
-    if (seleccion == 'PIEDRA') {
-        seleccion = ppt[0];
-    } else if (seleccion == 'PAPEL') {
-        seleccion = ppt[1];
-    } else if (seleccion == 'TIJERA') {
-        seleccion = ppt[2];
-    } else {
-        seleccion = null;
-    }
-    return seleccion;
-}
+            computadora.removeChild(div) 
+             
+            div = document.createElement('div')
+            div.classList.add('eleccionCompu');
+            div.textContent = ppt[random];
+
+            computadora.appendChild(div)
+        
+        return seleccionCompu = ppt[random];
+
+        }
+
+/* Asigna a cada selector de botón por el id
+    el evento click y llama la funcion roundPlay*/ 
+const botones = Array.from(document.querySelectorAll('#btn'));
+botones.forEach((btn) => {  
+    btn.addEventListener('click', roundPlay);
+})
 
 //Una ronda que ejecuta ambas selecciones, las compara
 // y devuelve un resultado
@@ -30,36 +35,37 @@ let playerSelection = function pS() {
 let posiblesResultados = ['Punto pa vo.','Punto pa la máquina.','Empate.','Escribí bien, dale.'];
 function roundPlay () {
     
-    let seleccion = playerSelection();
+    let seleccion = ppt[this.value];
     let seleccionCompu = computerSelection();
-    
+    let resultadoRonda
+
     if (seleccion === null) {
         resultadoRonda = posiblesResultados[3];
     } else {
         if (seleccion === seleccionCompu) {
             resultadoRonda = posiblesResultados[2];
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         } else if (seleccion === ppt[0] && seleccionCompu === ppt[1]) {
             resultadoRonda = posiblesResultados[1];    
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         } else if (seleccion === ppt[0] && seleccionCompu === ppt[2]) {
             resultadoRonda = posiblesResultados[0];    
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         } else if (seleccion === ppt[1] && seleccionCompu === ppt[0]) {
             resultadoRonda = posiblesResultados[0];    
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         } else if (seleccion === ppt[1] && seleccionCompu === ppt[2]) {
             resultadoRonda = posiblesResultados[1];    
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         } else if (seleccion === ppt[2] && seleccionCompu === ppt[0]) {
             resultadoRonda = posiblesResultados[1];
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         } else if (seleccion === ppt[2] && seleccionCompu === ppt[1]) {
             resultadoRonda = posiblesResultados[0];
-            alert('Jugador: ' + seleccion + '\n Computadora: ' + seleccionCompu);
+
         }
     }      
-    return resultadoRonda;
+    console.log(resultadoRonda);
 }
 
 // el juego en sí
@@ -94,7 +100,6 @@ function game() {
     }    
 }
 
-console.log(game());
 
 
 
